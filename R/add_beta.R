@@ -16,8 +16,8 @@
 
   # set starting parameters
   start[[paste0("l", n_comp)]] <- 0.5
-  start[[paste0("l", n_comp)]] <- 1
-  start[[paste0("l", n_comp)]] <- 1
+  start[[paste0("r", n_comp)]] <- 1
+  start[[paste0("s", n_comp)]] <- 1
 
   # calculate new coefficients
   est <- mle2(minuslogl=negLogLike, start=start, data=data, method = "L-BFGS-B",
