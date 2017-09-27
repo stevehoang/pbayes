@@ -1,5 +1,5 @@
 
-.alt_posterior <- function(p, model) {
+alt_posterior <- function(p, model) {
 
   # return 0 if there is only a uniform component
   if (length(model) == 1) {
@@ -16,13 +16,15 @@
     l <- paste0("l", i)
     r <- paste0("r", i)
     s <- paste0("s", i)
-    p_comp <- unname(model[l] * dbeta(p, model[r], mdoel[s]) * p)
+    p_comp <- unname(model[l] * dbeta(p, model[r], model[s]) * p)
     if (model[r] > model[s]) {
-      denom <- denom + pcomp
+      denom <- denom + p_comp
     } else {
-      numer <- numer + pcomp
+      numer <- numer + p_comp
     }
   }
+
+  # calculate the odds, probability
   odds <- numer / denom
   p_alt <- odds / (1 + odds)
   return(p_alt)

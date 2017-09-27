@@ -1,5 +1,5 @@
 
-.sample_beta_mix <- function(n, coefs) {
+sample_beta_mix <- function(n, coefs) {
 
   # get mixing fractions of components
   fracs <- coefs[grepl("^l", names(coefs))]
@@ -7,11 +7,16 @@
   n_comp <- length(fracs)
 
   # calculate intervals proprotional to the mixing fractions
-  intervals <- c(fracs[1])
-  for (i in 2:(n_comp - 1)) {
-    intervals <- c(intervals, fracs[i] + intervals[i - 1])
+  intervals <- c()
+  for (i in 1:(n_comp - 1)) {
+    if (i == 1) {
+      intervals <- c(intervals, fracs[i])
+    } else {
+      intervals <- c(intervals, fracs[i] + intervals[i - 1])
+    }
   }
 
+  # sample the mixture
   u <- runif(n) # random uniform draws on [0,1]
   samps <- c()
   for (i in u) {
@@ -25,5 +30,5 @@
     }
     samps <- c(samps, s)
   }
-  return(s)
+  return(samps)
 }

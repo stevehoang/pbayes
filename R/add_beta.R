@@ -1,31 +1,37 @@
-.add_beta <- function(ps, coefs) {
+add_beta <- function(p, coefs) {
 
+  # get number of components
   n_comp <- sum(grepl("^l", names(coefs)))
-  data <- list(x = ps)
+  data <- list(p = p)
+
+  # set starting parameters
+  init <- as.list(coefs)
+  init[[paste0("l", n_comp)]] <- 0.1
+  init[[paste0("r", n_comp)]] <- 1
+  init[[paste0("s", n_comp)]] <- 1
 
   # set boundaries for mixing fractions and
   # beta distribution parameters
-  upper_bounds <- c(rep(1, n_comp + 1),
-                    rep(1, n_comp),
-                    rep(Inf, ncomp))
-  names(upper_bounds) <- names(data)
+  upper_bounds <- rep(1, length(init))
+  names(upper_bounds) <- names(init)
+  upper_bounds[grepl("^s", names(upper_bounds))] <- 100
 
-  lower_bounds <- c(rep(0, n_comp * 2 + 1),
-                    rep(1, n_comp))
-  names(upper_bounds) <- names(data)
+  lower_bounds <- rep(.Machine$double.xmin, length(init))
+  names(lower_bounds) <- names(init)
+  lower_bounds[grepl("^l", names(lower_bounds))] <- 0
+  lower_bounds[grepl("^s", names(lower_bounds))] <- 1
 
-  # set starting parameters
-  start[[paste0("l", n_comp)]] <- 0.5
-  start[[paste0("r", n_comp)]] <- 1
-  start[[paste0("s", n_comp)]] <- 1
+  # construc negative log-likelihood function
+  nll <- construct_nll(names(init))
 
   # calculate new coefficients
-  est <- mle2(minuslogl=negLogLike, start=start, data=data, method = "L-BFGS-B",
-       lower = lower, upper = upper) # this should be modified to use SANN or some such
+  est <- bbmle::mle2(minuslogl = nll, start = init, data = data, method = "L-BFGS-B",
+       lower = lower_bounds, upper = upper_bounds) # this should be modified to use SANN or some such
 
+  # get new coefficients
   new_coefs <- est@fullcoef
   new_coefs[grepl("^l", names(new_coefs))] %<>% `/`(., sum(.))
   new_coefs <- new_coefs[order(names(new_coefs))]
 
-  retrun(new_coefs)
+  return(new_coefs)
 }
