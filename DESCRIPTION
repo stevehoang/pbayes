@@ -19,3 +19,4 @@ Imports: magrittr,
     doMC,
     Polyfit,
     purrr
+Remotes: bioc::3.5/Polyfit
