@@ -1,3 +1,9 @@
+#' @title Generate a negative log-likelihood function.
+#' @description Given a set of argument names, generate a negative
+#' log-likelihood function to be used in the optimization step of
+#' the \code{add_beta} function.
+#' @param arg_names A character vector with the names of the parameters
+#' of the beta mixture.
 construct_nll <- function(arg_names) {
 
   # define negative log-likelihood function

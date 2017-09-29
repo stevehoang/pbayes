@@ -1,4 +1,17 @@
-
+#' @title Fit a mixture of beta distributions to data.
+#' @description Estimates the parameters of a mixture of beta distributions,
+#' given some data. The mixture only permits monotonically decreasing
+#' betas and a single uniform distribution.
+#' @param p A numeric vector of p-values'
+#' @param n_boots A number providing the number of bootstraps used
+#' to calculate the convergence statistic.
+#' @param alpha A number representing the convergence statistic.
+#' @param n_cores A number representing the number of cores to use
+#' for the bootstrap calculation.
+#' @param subsample The proportion of p to subsample to calculate
+#' the beta mixture
+#' @param max_comp A number representing the maximum number of non-uniform
+#' components to include in the mixture distribution.
 estimate_params <- function(p, n_boots = 1000, alpha = 0.01,
                              n_cores = 1, subsample = 1, max_comp = 5) {
 

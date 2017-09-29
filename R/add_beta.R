@@ -1,3 +1,9 @@
+#' @title Add a new component to a mixture distribution.
+#' @description Adds a monotonically decreasing beta distribution to an
+#' existing distribution.
+#' @param p A numeric vector of p-values
+#' @param coefs A named numeric vector of coefficients representing the
+#' initial model.
 add_beta <- function(p, coefs) {
 
   # get number of components
