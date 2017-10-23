@@ -1,4 +1,7 @@
-
+#' @title Sample a mixture of beta distributions
+#' @description Draw a random sample from a beta mixture model
+#' @param n Number of observations
+#' @param coefs A named list providing the parameters of the beta mixture
 sample_beta_mix <- function(n, coefs) {
 
   # get mixing fractions of components

@@ -1,4 +1,10 @@
-
+#' @title Compute statistics for model selection
+#' @description Computes statistics to assess the value of adding an additional beta component
+#' @param p A numeric vector of p-values
+#' @param c0 A model with n beta components
+#' @param c1 A model with n+1 beta components
+#' @param n_boots Number of bootstraps to perform
+#' @param n_cores Number of cores to use to perform the bootstrapping
 bootstrap_Q <- function(p, c0, c1, n_boots, n_cores) {
 
   # define mixture sampling function

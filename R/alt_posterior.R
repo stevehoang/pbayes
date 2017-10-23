@@ -1,4 +1,8 @@
-
+#' @title Compute the posterior probability of the alternative hypothesis
+#' @description Maps a vector of p-values to a vector of posterior probabilites
+#' given a beta mixture model.
+#' @param p A numeric vector of p-values
+#' @param model The beta mixture model represented as a named list of distribution parameters.
 alt_posterior <- function(p, model) {
 
   # return 0 if there is only a uniform component

@@ -3,13 +3,12 @@ Type: Package
 Title: Convert p-values into Bayesian posterior probabilities
 Version: 0.1.0
 Authors@R: person("Steve", "Hoang", email = "stephen.a.hoang@gmail.com", role = c("aut", "cre"))
-Description: The core functionality of pbayes fits a mixture of a single uniform distribution and 
-    n beta distributions to a given set of p-values. Bayes' rule is then used to calulate the probability
-    that a given p-value from the set is associated with the non-uniform component of the mixture
-    distribution. Since p-values are uniformly distributed under the null hypothesis, the aformentioned
-    probability can be interpreted as the Bayesian posterior probability that the alternative hypothesis
-    is true. These probabilites can be combined using the standard rules of probability to perform 
-    composite hypothesis tests.
+Description: The core functionality of pbayes fits a mixture of n beta distributions (one of which is uniform) 
+    to a given set of p-values. Bayes' rule is then used to calulate the probability that a given p-value from 
+    the set is associated with the non-uniform component of the mixture distribution. Since p-values are 
+    uniformly distributed under the null hypothesis, the aformentioned probability can be interpreted as the 
+    Bayesian posterior probability that the alternative hypothesis is true. These probabilites can be combined 
+    using the standard rules of probability to perform composite hypothesis tests.
 License: MIT
 Encoding: UTF-8
 LazyData: true

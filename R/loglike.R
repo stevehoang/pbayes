@@ -1,4 +1,8 @@
-
+#' @title Calculate the value of the log likelihood function
+#' @description Given a distribution of p-values and mixture model coefficients
+#' calculate the value of the log likelihood function
+#' @param p A numeric vector of p-values
+#' @param model The beta mixture model represented as a named list of distribution parameters.
 loglike <- function(p, coefs) {
 
   # get model parameters
