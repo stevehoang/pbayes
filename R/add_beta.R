@@ -4,7 +4,8 @@
 #' @param p A numeric vector of p-values
 #' @param coefs A named numeric vector of coefficients representing the
 #' initial model.
-add_beta <- function(p, coefs) {
+#' @param sann Logical. Use simulated annealing (defaults to FALSE).
+add_beta <- function(p, coefs, sann = FALSE) {
 
   # get number of components
   n_comp <- sum(grepl("^l", names(coefs)))
@@ -15,6 +16,13 @@ add_beta <- function(p, coefs) {
   init[[paste0("l", n_comp)]] <- 0.1
   init[[paste0("r", n_comp)]] <- 1
   init[[paste0("s", n_comp)]] <- 1
+
+  # normalize the mixing fractions
+  norm <- init[grepl("^l", names(init))] %>%
+    unlist() %>%
+    sum()
+  init[grepl("^l", names(init))] <-
+    lapply(init[grepl("^l", names(init))], function(x) x / norm)
 
   # set boundaries for mixing fractions and
   # beta distribution parameters
@@ -31,8 +39,16 @@ add_beta <- function(p, coefs) {
   nll <- construct_nll(names(init))
 
   # calculate new coefficients
-  est <- bbmle::mle2(minuslogl = nll, start = init, data = data, method = "L-BFGS-B",
-       lower = lower_bounds, upper = upper_bounds) # this should be modified to use SANN or some such
+  if (sann == TRUE) {
+    # est <- bbmle::mle2(minuslogl = nll, start = init, data = data, method = "SANN",
+         # lower = lower_bounds, upper = upper_bounds, gr=sann_generate) #broken
+    est <- bbmle::mle2(minuslogl = nll, start = init, data = data,
+                       method = "SANN", gr=sann_generate) #broken
+  } else {
+    est <- bbmle::mle2(minuslogl = nll, start = init, data = data, method = "L-BFGS-B",
+         lower = lower_bounds, upper = upper_bounds)
+    print(est)
+  }
 
   # get new coefficients
   new_coefs <- est@fullcoef

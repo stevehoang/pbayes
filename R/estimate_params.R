@@ -12,8 +12,10 @@
 #' the beta mixture
 #' @param max_comp A number representing the maximum number of non-uniform
 #' components to include in the mixture distribution.
+#' @param sann Logical. Use simulated annealing (defaults to FALSE).
 estimate_params <- function(p, n_boots = 1000, alpha = 0.01,
-                             n_cores = 1, subsample = 1, max_comp = 5) {
+                            n_cores = 1, subsample = 1, max_comp = 5,
+                            sann = FALSE) {
 
   # subsample p-values if necessary
   if (!((subsample <= 1) & (subsample > 0))) {
@@ -26,7 +28,7 @@ estimate_params <- function(p, n_boots = 1000, alpha = 0.01,
 
   # two possible models
   coefs0 <- c("l0" = 1)
-  coefs1 <- add_beta(p, coefs0)
+  coefs1 <- add_beta(p, coefs0, sann=sann)
 
   q <- bootstrap_Q(p, coefs0, coefs1, n_boots, n_cores)
   sig <- sum(q$Qw > q$Qo) / n_boots
@@ -50,7 +52,7 @@ estimate_params <- function(p, n_boots = 1000, alpha = 0.01,
     # update coefficients
     coefs0 <- coefs1
     print(coefs0)
-    coefs1 <- add_beta(p, coefs0)
+    coefs1 <- add_beta(p, coefs0, sann=sann)
     q <- bootstrap_Q(p, coefs0, coefs1, n_boots, n_cores)
     sig <- sum(q$Qw > q$Qo) / n_boots
     n_comp <- n_comp + 1
