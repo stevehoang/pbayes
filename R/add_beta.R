@@ -39,15 +39,15 @@ add_beta <- function(p, coefs, sann = FALSE) {
   nll <- construct_nll(names(init))
 
   # calculate new coefficients
-  if (sann == TRUE) {
-    # est <- bbmle::mle2(minuslogl = nll, start = init, data = data, method = "SANN",
-         # lower = lower_bounds, upper = upper_bounds, gr=sann_generate) #broken
+  if (sann == TRUE) { # simulated annealing
     est <- bbmle::mle2(minuslogl = nll, start = init, data = data,
-                       method = "SANN", gr=sann_generate) #broken
+                       method = "SANN", gr=sann_generate)
   } else {
-    est <- bbmle::mle2(minuslogl = nll, start = init, data = data, method = "L-BFGS-B",
-         lower = lower_bounds, upper = upper_bounds)
-    print(est)
+    est <- try(bbmle::mle2(minuslogl = nll, start = init, data = data, method = "L-BFGS-B",
+         lower = lower_bounds, upper = upper_bounds))
+    if (class(est) == "try-error") {
+      stop("Error in MLE. Try running with sann = TRUE.")
+    }
   }
 
   # get new coefficients

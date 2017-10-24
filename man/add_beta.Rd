@@ -4,13 +4,15 @@
 \alias{add_beta}
 \title{Add a new component to a mixture distribution.}
 \usage{
-add_beta(p, coefs)
+add_beta(p, coefs, sann = FALSE)
 }
 \arguments{
 \item{p}{A numeric vector of p-values}
 
 \item{coefs}{A named numeric vector of coefficients representing the
 initial model.}
+
+\item{sann}{Logical. Use simulated annealing (defaults to FALSE).}
 }
 \description{
 Adds a monotonically decreasing beta distribution to an

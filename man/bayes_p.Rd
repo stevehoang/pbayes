@@ -5,7 +5,7 @@
 \title{Map p-values to posterior probabilities}
 \usage{
 bayes_p(p, n_boots = 1000, alpha = 0.01, n_cores = 1, subsample = 1,
-  level_p = FALSE, max_comp = 5)
+  level_p = FALSE, max_comp = 5, sann = FALSE)
 }
 \arguments{
 \item{p}{A numeric vector of p-values'}
@@ -26,6 +26,8 @@ before the fitting procedure.}
 
 \item{max_comp}{A number representing the maximum number of non-uniform
 components to include in the mixture distribution.}
+
+\item{sann}{Logical. Use simulated annealing (defaults to FALSE).}
 }
 \description{
 Given a vector of p-values from independent hypothesis

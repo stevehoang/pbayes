@@ -1,4 +1,5 @@
-
+#' @title Generate a new point for simulated annealing
+#' @param ... The arguments to the negative log likelihood function
 sann_generate <- function(...) {
   params <- list(...)
   params <- params[-length(params)]

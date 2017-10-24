@@ -5,7 +5,7 @@
 \title{Fit a mixture of beta distributions to data.}
 \usage{
 estimate_params(p, n_boots = 1000, alpha = 0.01, n_cores = 1,
-  subsample = 1, max_comp = 5)
+  subsample = 1, max_comp = 5, sann = FALSE)
 }
 \arguments{
 \item{p}{A numeric vector of p-values'}
@@ -23,6 +23,8 @@ the beta mixture}
 
 \item{max_comp}{A number representing the maximum number of non-uniform
 components to include in the mixture distribution.}
+
+\item{sann}{Logical. Use simulated annealing (defaults to FALSE).}
 }
 \description{
 Estimates the parameters of a mixture of beta distributions,
