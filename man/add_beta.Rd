@@ -12,9 +12,9 @@ add_beta(p, coefs, sann = FALSE, ...)
 \item{coefs}{A named numeric vector of coefficients representing the
 initial model.}
 
-\item{sann}{Logical. Use simulated annealing (defaults to FALSE).}
-
 \item{...}{Additional parameters to be passed to \code{bbmle::mle2}.}
+
+\item{opt_method}{Optimization method (see \code{?optim} for options).}
 }
 \description{
 Adds a monotonically decreasing beta distribution to an

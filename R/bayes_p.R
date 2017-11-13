@@ -18,12 +18,12 @@
 #' before the fitting procedure.
 #' @param max_comp A number representing the maximum number of non-uniform
 #' components to include in the mixture distribution.
-#' @param sann Logical. Use simulated annealing (defaults to FALSE).
+#' @param opt_method Optimization method (see \code{?optim} for options).
 #' @param ... Additional parameters to be passed to \code{bbmle::mle2}.
 #' @export
 bayes_p <- function(p, n_boots = 1000, alpha = 0.01, n_cores = 1,
                     subsample = 1, level_p = FALSE, max_comp = 5,
-                    sann = FALSE, ...) {
+                    opt_method = "L-BFGS-B", ...) {
 
   # level p-values if required
   if (level_p) {
@@ -40,7 +40,7 @@ bayes_p <- function(p, n_boots = 1000, alpha = 0.01, n_cores = 1,
   # fit a beta mixture to the data
   model <- estimate_params(p, n_boots = n_boots, alpha = alpha,
                            n_cores = n_cores, subsample = subsample,
-                           max_comp = max_comp, sann = sann, ...)
+                           max_comp = max_comp, opt_method = opt_method, ...)
 
   # calculate the posterior probabilities of the alternative truth
   pp <- purrr::map_dbl(p, ~ alt_posterior(., model=model))

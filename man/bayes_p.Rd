@@ -5,7 +5,7 @@
 \title{Map p-values to posterior probabilities}
 \usage{
 bayes_p(p, n_boots = 1000, alpha = 0.01, n_cores = 1, subsample = 1,
-  level_p = FALSE, max_comp = 5, sann = FALSE, ...)
+  level_p = FALSE, max_comp = 5, opt_method = "L-BFGS-B", ...)
 }
 \arguments{
 \item{p}{A numeric vector of p-values'}
@@ -27,7 +27,7 @@ before the fitting procedure.}
 \item{max_comp}{A number representing the maximum number of non-uniform
 components to include in the mixture distribution.}
 
-\item{sann}{Logical. Use simulated annealing (defaults to FALSE).}
+\item{opt_method}{Optimization method (see \code{?optim} for options).}
 
 \item{...}{Additional parameters to be passed to \code{bbmle::mle2}.}
 }
