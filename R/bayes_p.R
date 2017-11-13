@@ -31,7 +31,7 @@ bayes_p <- function(p, n_boots = 1000, alpha = 0.01, n_cores = 1,
   }
 
   # check for evidence of true positives
-  h <- hist(p)$counts
+  h <- hist(p, plot = FALSE)$counts
   if (max(h) != h[1]) {
     print("Warning: Small p-values are not strongly overreprensented.
           Inspection of p-value histogram is recommended")
@@ -91,7 +91,6 @@ plot.bayes_p <- function(bp, ggtheme = ggplot2::theme_bw()) {
                                                    p_vals = samps,
                                                    stringsAsFactors = FALSE))
   res <- do.call(dplyr::bind_rows, res)
-  res <- res[sapply(res$val, is.finite), ]
 
   # res %<>% dplyr::rowwise() %>%
     # dplyr::mutate(val = val * length(bp$p_vals))
