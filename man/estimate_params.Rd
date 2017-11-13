@@ -5,7 +5,7 @@
 \title{Fit a mixture of beta distributions to data.}
 \usage{
 estimate_params(p, n_boots = 1000, alpha = 0.01, n_cores = 1,
-  subsample = 1, max_comp = 5, sann = FALSE)
+  subsample = 1, max_comp = 5, sann = FALSE, ...)
 }
 \arguments{
 \item{p}{A numeric vector of p-values'}
@@ -25,6 +25,8 @@ the beta mixture}
 components to include in the mixture distribution.}
 
 \item{sann}{Logical. Use simulated annealing (defaults to FALSE).}
+
+\item{...}{Additional parameters to be passed to \code{bbmle::mle2}.}
 }
 \description{
 Estimates the parameters of a mixture of beta distributions,

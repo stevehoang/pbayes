@@ -5,7 +5,7 @@
 \title{Map p-values to posterior probabilities}
 \usage{
 bayes_p(p, n_boots = 1000, alpha = 0.01, n_cores = 1, subsample = 1,
-  level_p = FALSE, max_comp = 5, sann = FALSE)
+  level_p = FALSE, max_comp = 5, sann = FALSE, ...)
 }
 \arguments{
 \item{p}{A numeric vector of p-values'}
@@ -28,6 +28,8 @@ before the fitting procedure.}
 components to include in the mixture distribution.}
 
 \item{sann}{Logical. Use simulated annealing (defaults to FALSE).}
+
+\item{...}{Additional parameters to be passed to \code{bbmle::mle2}.}
 }
 \description{
 Given a vector of p-values from independent hypothesis

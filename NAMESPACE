@@ -2,6 +2,9 @@
 
 export("%<>%")
 export("%>%")
+export("%dopar%")
 export(bayes_p)
+export(sample_beta_mix)
+importFrom(foreach,"%dopar%")
 importFrom(magrittr,"%<>%")
 importFrom(magrittr,"%>%")

@@ -5,7 +5,8 @@
 #' @param coefs A named numeric vector of coefficients representing the
 #' initial model.
 #' @param sann Logical. Use simulated annealing (defaults to FALSE).
-add_beta <- function(p, coefs, sann = FALSE) {
+#' @param ... Additional parameters to be passed to \code{bbmle::mle2}.
+add_beta <- function(p, coefs, sann = FALSE, ...) {
 
   # get number of components
   n_comp <- sum(grepl("^l", names(coefs)))
@@ -41,10 +42,10 @@ add_beta <- function(p, coefs, sann = FALSE) {
   # calculate new coefficients
   if (sann == TRUE) { # simulated annealing
     est <- bbmle::mle2(minuslogl = nll, start = init, data = data,
-                       method = "SANN", gr=sann_generate)
+                       method = "SANN", gr=sann_generate, ...)
   } else {
     est <- try(bbmle::mle2(minuslogl = nll, start = init, data = data, method = "L-BFGS-B",
-         lower = lower_bounds, upper = upper_bounds))
+         lower = lower_bounds, upper = upper_bounds, ...))
     if (class(est) == "try-error") {
       stop("Error in MLE. Try running with sann = TRUE.")
     }

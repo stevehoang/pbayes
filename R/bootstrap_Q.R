@@ -10,7 +10,7 @@ bootstrap_Q <- function(p, c0, c1, n_boots, n_cores) {
   # define mixture sampling function
   n <- length(p)
   f <- function() {
-    samp <- sample_beta_mix(n, c0)
+    samp <- sample_beta_mix(c0, n)
     ll0 <- loglike(samp, c0)
     ll1 <- loglike(samp, c1)
     qw <- 2 * (ll1 - ll0)

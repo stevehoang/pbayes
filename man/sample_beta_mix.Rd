@@ -4,12 +4,12 @@
 \alias{sample_beta_mix}
 \title{Sample a mixture of beta distributions}
 \usage{
-sample_beta_mix(n, coefs)
+sample_beta_mix(coefs, n)
 }
 \arguments{
-\item{n}{Number of observations}
-
 \item{coefs}{A named list providing the parameters of the beta mixture}
+
+\item{n}{Number of observations}
 }
 \description{
 Draw a random sample from a beta mixture model

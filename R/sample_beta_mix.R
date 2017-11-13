@@ -1,8 +1,9 @@
 #' @title Sample a mixture of beta distributions
 #' @description Draw a random sample from a beta mixture model
-#' @param n Number of observations
 #' @param coefs A named list providing the parameters of the beta mixture
-sample_beta_mix <- function(n, coefs) {
+#' @param n Number of observations
+#' @export
+sample_beta_mix <- function(coefs, n) {
 
   # get mixing fractions of components
   fracs <- coefs[grepl("^l", names(coefs))]
@@ -20,8 +21,8 @@ sample_beta_mix <- function(n, coefs) {
   }
 
   # sample the mixture
-  u <- runif(n) # random uniform draws on [0,1]
   samps <- c()
+  u <- runif(n) # random uniform draws on [0,1]
   for (i in u) {
     ind <- sum(intervals < i) + 1 # ID the interval
     comp <- names(fracs)[ind] # get the component associated with the interval
@@ -33,5 +34,6 @@ sample_beta_mix <- function(n, coefs) {
     }
     samps <- c(samps, s)
   }
+
   return(samps)
 }

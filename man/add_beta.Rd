@@ -4,7 +4,7 @@
 \alias{add_beta}
 \title{Add a new component to a mixture distribution.}
 \usage{
-add_beta(p, coefs, sann = FALSE)
+add_beta(p, coefs, sann = FALSE, ...)
 }
 \arguments{
 \item{p}{A numeric vector of p-values}
@@ -13,6 +13,8 @@ add_beta(p, coefs, sann = FALSE)
 initial model.}
 
 \item{sann}{Logical. Use simulated annealing (defaults to FALSE).}
+
+\item{...}{Additional parameters to be passed to \code{bbmle::mle2}.}
 }
 \description{
 Adds a monotonically decreasing beta distribution to an

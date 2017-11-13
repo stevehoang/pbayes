@@ -17,6 +17,8 @@ Imports: magrittr,
     foreach,
     doMC,
     Polyfit,
-    purrr
+    purrr,
+    ggsci,
+    egg
 Remotes: bioc::3.5/Polyfit
 RoxygenNote: 6.0.1
