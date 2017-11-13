@@ -7,7 +7,6 @@ sann_generate <- function(...) {
   names(params) <- c("l0", paste0("l", 1:n_comp),
                      paste0("r", 1:n_comp), paste0("s", 1:n_comp))
   ind <- sample(1:length(params), 1) # select a parameter to change
-  indicator <- sample(c(0,1), 1) # parameter will be decreased (0) or increased (1)
   frac <- runif(1) # the change factor
   if (grepl("^s", names(params)[ind])) {
     val <- 1 + 99 * frac
