@@ -4,7 +4,7 @@
 \alias{add_beta}
 \title{Add a new component to a mixture distribution.}
 \usage{
-add_beta(p, coefs, sann = FALSE, ...)
+add_beta(p, coefs, opt_method = "L-BFGS-B", ...)
 }
 \arguments{
 \item{p}{A numeric vector of p-values}
@@ -12,9 +12,9 @@ add_beta(p, coefs, sann = FALSE, ...)
 \item{coefs}{A named numeric vector of coefficients representing the
 initial model.}
 
-\item{...}{Additional parameters to be passed to \code{bbmle::mle2}.}
-
 \item{opt_method}{Optimization method (see \code{?optim} for options).}
+
+\item{...}{Additional parameters to be passed to \code{bbmle::mle2}.}
 }
 \description{
 Adds a monotonically decreasing beta distribution to an

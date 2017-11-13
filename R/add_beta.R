@@ -6,7 +6,7 @@
 #' initial model.
 #' @param opt_method Optimization method (see \code{?optim} for options).
 #' @param ... Additional parameters to be passed to \code{bbmle::mle2}.
-add_beta <- function(p, coefs, sann = FALSE, ...) {
+add_beta <- function(p, coefs, opt_method = "L-BFGS-B", ...) {
 
   # get number of components
   n_comp <- sum(grepl("^l", names(coefs)))
