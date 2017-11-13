@@ -27,7 +27,7 @@ before the fitting procedure.}
 \item{max_comp}{A number representing the maximum number of non-uniform
 components to include in the mixture distribution.}
 
-\item{opt_method}{Optimization method (see \code{?optim} for options).}
+\item{opt_method}{Optimization method. Options are "L-BFGS-B" or "SANN".}
 
 \item{...}{Additional parameters to be passed to \code{bbmle::mle2}.}
 }

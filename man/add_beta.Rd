@@ -12,7 +12,7 @@ add_beta(p, coefs, opt_method = "L-BFGS-B", ...)
 \item{coefs}{A named numeric vector of coefficients representing the
 initial model.}
 
-\item{opt_method}{Optimization method (see \code{?optim} for options).}
+\item{opt_method}{Optimization method. Options are "L-BFGS-B" or "SANN".}
 
 \item{...}{Additional parameters to be passed to \code{bbmle::mle2}.}
 }

@@ -12,7 +12,7 @@
 #' the beta mixture
 #' @param max_comp A number representing the maximum number of non-uniform
 #' components to include in the mixture distribution.
-#' @param opt_method Optimization method (see \code{?optim} for options).
+#' @param opt_method Optimization method. Options are "L-BFGS-B" or "SANN".
 #' @param ... Additional parameters to be passed to \code{bbmle::mle2}.
 estimate_params <- function(p, n_boots = 1000, alpha = 0.01,
                             n_cores = 1, subsample = 1, max_comp = 5,

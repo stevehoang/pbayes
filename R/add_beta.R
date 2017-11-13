@@ -4,7 +4,7 @@
 #' @param p A numeric vector of p-values
 #' @param coefs A named numeric vector of coefficients representing the
 #' initial model.
-#' @param opt_method Optimization method (see \code{?optim} for options).
+#' @param opt_method Optimization method. Options are "L-BFGS-B" or "SANN".
 #' @param ... Additional parameters to be passed to \code{bbmle::mle2}.
 add_beta <- function(p, coefs, opt_method = "L-BFGS-B", ...) {
 
