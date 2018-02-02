@@ -22,7 +22,7 @@
 #' @param ... Additional parameters to be passed to \code{bbmle::mle2}.
 #' @export
 bayes_p <- function(p, n_boots = 1000, alpha = 0.01, n_cores = 1,
-                    subsample = 1, level_p = FALSE, max_comp = 5,
+                    subsample = 1, level_p = FALSE, max_comp = 4,
                     opt_method = "L-BFGS-B", ...) {
 
   # level p-values if required

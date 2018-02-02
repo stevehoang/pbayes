@@ -14,9 +14,9 @@ add_beta <- function(p, coefs, opt_method = "L-BFGS-B", ...) {
 
   # set starting parameters
   init <- as.list(coefs)
-  init[[paste0("l", n_comp)]] <- 0.1
-  init[[paste0("r", n_comp)]] <- 1
-  init[[paste0("s", n_comp)]] <- 1
+  init[[paste0("l", n_comp)]] <- 0.5
+  init[[paste0("r", n_comp)]] <- 0.1
+  init[[paste0("s", n_comp)]] <- 3
 
   # normalize the mixing fractions
   norm <- init[grepl("^l", names(init))] %>%
@@ -47,7 +47,7 @@ add_beta <- function(p, coefs, opt_method = "L-BFGS-B", ...) {
     est <- try(bbmle::mle2(minuslogl = nll, start = init, data = data, method = opt_method,
          lower = lower_bounds, upper = upper_bounds, ...))
     if (class(est) == "try-error") {
-      stop("Error in MLE. Try running with another optimization method")
+      stop('Error in MLE. Try running with opt_method = "SANN"')
     }
   }
 
