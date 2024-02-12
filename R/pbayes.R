@@ -94,7 +94,7 @@ pbayes <- function(p, n_boots = 1000, alpha = 0.01, n_cores = 1, subsample = 1,
   # generate output
   res <- list(p_value = p_orig,
               posterior_prob = pp,
-              mixture_model = mixm) # add t/f for &
+              mixture_model = mixm)
 
   class(res) <- "pbayes"
 
