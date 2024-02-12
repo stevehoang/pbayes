@@ -1,6 +1,6 @@
 #' @title Generate a new point for simulated annealing
 #' @param ... The arguments to the negative log likelihood function
-sann_generate <- function(...) {
+.sann_generate <- function(...) {
   params <- list(...)
   params <- params[-length(params)]
   n_comp <- ( length(params) - 1 ) / 3
@@ -14,9 +14,8 @@ sann_generate <- function(...) {
     val <- frac
   }
   params[[ind]] <- val
-  norm <- params[grepl("^l", names(params))] %>%
-    unlist() %>%
-    sum()
+  norm <- unlist(params[grepl("^l", names(params))])
+  norm <- sum(norm)
   params[grepl("^l", names(params))] <-
     lapply(params[grepl("^l", names(params))], function(x) x / norm)
   res <- unlist(params)
