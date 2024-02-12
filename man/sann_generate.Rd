@@ -9,3 +9,6 @@ sann_generate(...)
 \arguments{
 \item{...}{The arguments to the negative log likelihood function}
 }
+\description{
+Generate a new point for simulated annealing
+}

@@ -4,8 +4,17 @@
 \alias{bayes_p}
 \title{Map p-values to posterior probabilities}
 \usage{
-bayes_p(p, n_boots = 1000, alpha = 0.01, n_cores = 1, subsample = 1,
-  level_p = FALSE, max_comp = 5, opt_method = "L-BFGS-B", ...)
+bayes_p(
+  p,
+  n_boots = 1000,
+  alpha = 0.01,
+  n_cores = 1,
+  subsample = 1,
+  level_p = FALSE,
+  max_comp = 4,
+  opt_method = "L-BFGS-B",
+  ...
+)
 }
 \arguments{
 \item{p}{A numeric vector of p-values'}

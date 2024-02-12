@@ -4,15 +4,28 @@
 \alias{add_beta}
 \title{Add a new component to a mixture distribution.}
 \usage{
-add_beta(p, coefs, opt_method = "L-BFGS-B", ...)
+add_beta(
+  p,
+  mixm,
+  opt_method = "L-BFGS-B",
+  monotone = TRUE,
+  min_null = 0.4,
+  suppress_warn = TRUE,
+  ...
+)
 }
 \arguments{
-\item{p}{A numeric vector of p-values}
+\item{p}{A vector of p-values}
 
-\item{coefs}{A named numeric vector of coefficients representing the
-initial model.}
+\item{mixm}{A \code{betamix} object representing the beta mixture model.
+This is typically created by the fit_beta_mix function.}
 
 \item{opt_method}{Optimization method. Options are "L-BFGS-B" or "SANN".}
+
+\item{monotone}{Only use monotonically-decreasing beta components in the
+mixture model}
+
+\item{min_null}{The lower bound on the null distribution mixing fraction.}
 
 \item{...}{Additional parameters to be passed to \code{bbmle::mle2}.}
 }

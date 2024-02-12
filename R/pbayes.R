@@ -2,10 +2,8 @@
 #' @description Given a vector of p-values from independent hypothesis
 #' tests, calculate the Bayesian posterior probability of the alternative
 #' hypothesis being true. The method implemeted is similar to the
-#' method described by Erikson et al., 2006 and Allison et al., 2002.
+#' method described by Erikson et al., 2010 and Allison et al., 2002.
 #' @param p A numeric vector of p-values
-#' @param level_pvals Logical. Apply a cubic polynomial fit to a portion of the
-#' p-value histogram to smooth non-uniform trends.
 #' @param n_boots A number providing the number of bootstraps used
 #' to calculate the convergence statistic.
 #' @param alpha A number representing the convergence statistic for fitting
@@ -23,23 +21,25 @@
 #' @param mask_flagpole Logical. During the fitting procedure, mask p-values
 #' that are equal to 1. These values can be overrepresented due to p-value
 #' calulations on discrete distributions.
+#' @param level_pvals Logical. Apply a cubic polynomial fit to a portion of the
+#' p-value histogram to level non-uniform trends.
 #' @param ... Additional parameters to be passed to \code{bbmle::mle2}.
 #' @references
 #' Allison, D. B., et al. (2002). A mixture model approach for the analysis of
 #' microarray gene expression data. Computational Statistics & Data Analysis,
 #' 39(1), 1-20. https://doi.org/10.1016/S0167-9473(01)00046-9
 #'
-#' Erikson S., et al. (2006). Composite hypothesis testing: and approach built
+#' Erikson S., et al. (2010). Composite hypothesis testing: and approach built
 #' on intersection-union tests and Bayesian posterior probabilities. In
 #' Guerra, R., and Goldstein, D. R., (Ed.), Meta-analysis and Combining
 #' Information in Genetics and Genomics. (pp. 83-93). Chapman & Hall/CRC.
 #' @return A list of 1) the original p-values, 2) the posterior probabilities
 #' corresponding to each p-value, and 3) parameters of the fitted mixture model.
 #' @export
-pbayes <- function(p, level_pvals = FALSE, n_boots = 1000,
-                   alpha = 0.01, n_cores = 1, subsample = 1,
+pbayes <- function(p, n_boots = 1000, alpha = 0.01, n_cores = 1, subsample = 1,
                    max_comp = 3, min_null = 0.4, opt_method = "L-BFGS-B",
-                   monotone = TRUE, mask_flagpole = TRUE, ...) {
+                   monotone = TRUE, mask_flagpole = TRUE,
+                   level_pvals = FALSE, ...) {
 
   # check for valid p-values
   if (!is.numeric(p)) {
