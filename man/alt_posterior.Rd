@@ -4,14 +4,14 @@
 \alias{alt_posterior}
 \title{Compute the posterior probability of the alternative hypothesis}
 \usage{
-alt_posterior(p, model)
+alt_posterior(p, mixm)
 }
 \arguments{
 \item{p}{A numeric vector of p-values}
 
-\item{model}{The beta mixture model represented as a named list of distribution parameters.}
+\item{mixm}{A \code{betamix} object representing the beta mixture model}
 }
 \description{
-Maps a vector of p-values to a vector of posterior probabilites
+Maps a vector of p-values to a vector of posterior probabilities
 given a beta mixture model.
 }
