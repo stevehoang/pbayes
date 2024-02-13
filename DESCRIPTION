@@ -20,8 +20,5 @@ Imports:
     bbmle,
     foreach,
     doMC,
-    purrr,
-    ggsci,
     testthat
-Remotes: bioc::3.5/Polyfit
 RoxygenNote: 7.2.3
