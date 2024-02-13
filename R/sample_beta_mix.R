@@ -1,39 +1,38 @@
-#' @title Sample a mixture of beta distributions
-#' @description Draw a random sample from a beta mixture model
-#' @param coefs A named list providing the parameters of the beta mixture
-#' @param n Number of observations
+#' @title Sample from a uniform-beta mixture distribution
+#' @description Random draws from a uniform-beta mixture model
+#' @param mixm A betamix object defining the beta mixture
+#' @param n Number of draws
 #' @export
-sample_beta_mix <- function(coefs, n) {
+sample_betamix <- function(mixm, n) {
 
-  # get mixing fractions of components
-  fracs <- coefs[grepl("^l", names(coefs))]
-  fracs %<>% sort()
-  n_comp <- length(fracs)
-
-  # calculate intervals proprotional to the mixing fractions
-  intervals <- c()
-  for (i in 1:(n_comp - 1)) {
-    if (i == 1) {
-      intervals <- c(intervals, fracs[i])
-    } else {
-      intervals <- c(intervals, fracs[i] + intervals[i - 1])
-    }
+  # check for valid mixture model object
+  if (class(mixm) != "betamix") {
+    stop("Mixture model must be of class betamix")
   }
 
-  # sample the mixture
+  # get mixing fractions of components
+  fracs <- sort(unlist(mixm[grepl("^l", names(mixm))]))
+  intervals <- c(0, cumsum(fracs))
+
+  # use the intervals to segment a random uniform vector
+  u <- runif(n)
+  cuts <- cut(u, intervals)
+  intervals2 <- levels(cuts)
+  names(intervals2) <- names(intervals)[-1]
+
+  # loop over the intervals and sample the appropriate component
   samps <- c()
-  u <- runif(n) # random uniform draws on [0,1]
-  for (i in u) {
-    ind <- sum(intervals < i) + 1 # ID the interval
-    comp <- names(fracs)[ind] # get the component associated with the interval
-    # sample from the appropriate component
+  for(i in 1:length(intervals2)) {
+    nsamp <- sum(cuts == intervals2[i])
+    comp <- names(intervals2)[i]
     if (comp == "l0") {
-      s <- rbeta(1, 1, 1)
+      s <- rbeta(nsamp, 1, 1)
     } else {
-      s <- rbeta(1, coefs[sub("l", "r", comp)], coefs[sub("l", "s", comp)])
+      s <- rbeta(nsamp, mixm[[sub("l", "r", comp)]],
+                 mixm[[sub("l", "s", comp)]])
     }
     samps <- c(samps, s)
   }
 
-  return(samps)
+  return(sample(samps))
 }
