@@ -1,6 +1,6 @@
 # pbayes: Bayesian Probability Mapping for P-Values
 
-pbayes is an R package designed to map p-values onto Bayesian posterior probabilities of null hypothesis being false. It achieves this by modeling the distribution of p-values as a uniform-beta mixture. This approach allows users to interpret p-values from hypothesis tests within a Bayesian framework, offering a nuanced understanding of their results and enables many possibilities for meta-analysis.
+pbayes is an R package designed to map p-values onto Bayesian posterior probabilities of the null hypothesis being false. It achieves this by modeling the distribution of p-values as a uniform-beta mixture. This approach allows users to interpret p-values from hypothesis tests within a Bayesian framework, offering a nuanced understanding of their results and enables many possibilities for meta-analysis.
 
 ## Installation
 
@@ -17,7 +17,7 @@ remotes::install_github("stevehoang/pbayes")
 
 ## Usage
 
-This packages exposes several functions, but most users will only need to interface with `pbayes`. This function takes as input a collection of independent p-values (at least hundreds), and outputs 1) uniform-beta mixture distribution fitted to the data and 2) a posterior probability for each p-value that it corresponds to a non-uniform component of the fitted mixture. The latter value is interpreted as the posterior probability of the alternative hypothesis being true.
+This packages exposes several functions, but most users will only need to interface with `pbayes`. This function takes as input a collection of independent p-values (at least hundreds), and outputs 1) uniform-beta mixture distribution fitted to the data and 2) a posterior probability for each p-value that it corresponds to a non-uniform component of the fitted mixture. The latter value is interpreted as the posterior probability of the alternative hypothesis being true (equivalently, the posterior probability of the null hypothesis being false).
 
 To demonstrate usage, we will simulate a distribution p-values and then use `pbayes` to fit a uniform-beta distribution to the data:
 
