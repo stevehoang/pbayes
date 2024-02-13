@@ -17,7 +17,7 @@ devtools::install_github("stevehoang/pbayes")
 
 ## Usage
 
-This packages exposes several functions, but most users will only need to interface with `pbayes`. This function takes as input many independent p-values (at least hundreds), and outputs 1) uniform-beta mixture distribution fitted to the data, and 2) a posterior probability for each p-value that it corresponds to a non-uniform component of the mixture. The latter value is interpreted as the posterior probability of the alternative hypothesis being true.
+This packages exposes several functions, but most users will only need to interface with `pbayes`. This function takes as input a collection independent p-values (at least hundreds), and outputs 1) uniform-beta mixture distribution fitted to the data, and 2) a posterior probability for each p-value that it corresponds to a non-uniform component of the fitted mixture. The latter value is interpreted as the posterior probability of the alternative hypothesis being true.
 
 To demonstrate usage, we will simulate a distribution p-values and then use `pbayes` to fit a uniform-beta distribution to the data:
 
@@ -46,6 +46,31 @@ hist(p_sim)
 ```
 ![pvalue_hist](https://github.com/stevehoang/pbayes/assets/3991279/6aeefa18-b2a4-4dae-b2a5-b46ad5627972)
 
-This type of p-value distribution is typical in biological "omic" experiments where hypothesis tests are performed across thousands of entities (e.g., genes) simultaneously.
+This type of p-value distribution is typical in biological "omic" experiments where hypothesis tests are performed across thousands of entities simultaneously (e.g., across genes).
 
 Now we'll use `pbayes` to fit the mixure model and calculate posterior probabilities.
+
+```r
+pb <- pbayes::pbayes(p_sim, n_cores = 5)
+```
+
+Let's look at the estimated parameters:
+```r
+pb$mixture_model
+```
+```
+       l0        l1        r1        s1 
+0.8152414 0.1847586 0.5177831 3.4183191 
+attr(,"class")
+[1] "betamix"
+```
+As expected, these parameters estimates are very close to the true parameters we specified above.
+
+Finally, we can inspect the relationship between the original p-values and the new posterior probabilities:
+
+```r
+plot(pb$p_value, pb$posterior_prob)
+```
+![post_p_vs_pvalue](https://github.com/stevehoang/pbayes/assets/3991279/b4855f98-c53c-45f6-9609-1d665e6dee2e)
+
+Small p-values map to large posterior probabilities. This is what we expect, since posterior probabilities near 1 indicate that he alternative hypothesis is likely true.
