@@ -29,7 +29,7 @@
 #' microarray gene expression data. Computational Statistics & Data Analysis,
 #' 39(1), 1-20. https://doi.org/10.1016/S0167-9473(01)00046-9
 #'
-#' Erikson S., et al. (2010). Composite hypothesis testing: and approach built
+#' Erikson S., et al. (2010). Composite hypothesis testing: an approach built
 #' on intersection-union tests and Bayesian posterior probabilities. In
 #' Guerra, R., and Goldstein, D. R., (Ed.), Meta-analysis and Combining
 #' Information in Genetics and Genomics. (pp. 83-93). Chapman & Hall/CRC.
@@ -37,7 +37,7 @@
 #' corresponding to each p-value, and 3) parameters of the fitted mixture model.
 #' @export
 pbayes <- function(p, n_boots = 1000, alpha = 0.01, n_cores = 1, subsample = 1,
-                   max_comp = 3, min_null = 0.4, opt_method = "L-BFGS-B",
+                   max_comp = 1, min_null = 0.4, opt_method = "L-BFGS-B",
                    monotone = TRUE, mask_flagpole = TRUE,
                    level_pvals = FALSE, ...) {
 
