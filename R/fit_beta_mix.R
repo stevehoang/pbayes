@@ -18,7 +18,7 @@
 #' export
 fit_beta_mix <- function(p, n_boots = 1000, alpha = 0.01,
                          n_cores = 1, subsample = 1,
-                         max_comp = 3, min_null = 0.4,
+                         max_comp = 4, min_null = 0.4,
                          opt_method = "L-BFGS-B",
                          monotone = TRUE, ...) {
 
