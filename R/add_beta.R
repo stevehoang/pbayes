@@ -3,7 +3,7 @@
 #' existing distribution.
 #' @param p A vector of p-values
 #' @param mixm A \code{betamix} object representing the beta mixture model.
-#' This is typically created by the fit_beta_mix function.
+#' This is typically created by the fit_betamix function.
 #' @param opt_method Optimization method. Options are "L-BFGS-B" or "SANN".
 #' @param monotone Only use monotonically-decreasing beta components in the
 #' mixture model

@@ -82,7 +82,7 @@ pbayes <- function(p, n_boots = 1000, alpha = 0.01, n_cores = 1, subsample = 1,
   }
 
   # fit a monotonic beta mixture to the data
-  mixm <- fit_beta_mix(p, n_boots = n_boots, alpha = alpha,
+  mixm <- fit_betamix(p, n_boots = n_boots, alpha = alpha,
                        n_cores = n_cores, subsample = subsample,
                        max_comp = max_comp, min_null = min_null,
                        opt_method = opt_method,
