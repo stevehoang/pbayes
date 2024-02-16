@@ -64,7 +64,13 @@ pb$mixture_model
 attr(,"class")
 [1] "betamix"
 ```
-As expected, these parameter estimates are very close to the true parameters we specified above.
+As expected, these parameter estimates are very close to the true parameters we specified above. We can also inspect a plot of the fitted components using the `plot` method of the `pbayes` object:
+
+```r
+plot(pb)
+```
+
+<img src="https://github.com/stevehoang/pbayes/assets/3991279/1859201c-bf09-4646-98f0-1b0dfcce080f" width="75%">
 
 Finally, we can inspect the relationship between the original p-values and the new posterior probabilities:
 
@@ -72,6 +78,7 @@ Finally, we can inspect the relationship between the original p-values and the n
 plot(pb$p_value, pb$posterior_prob)
 ```
 ![post_p_vs_pvalue](https://github.com/stevehoang/pbayes/assets/3991279/b4855f98-c53c-45f6-9609-1d665e6dee2e)
+
 
 Small p-values map to large posterior probabilities. This is what we expect, since posterior probabilities near 1 indicate that the null hypothesis is likely false.
 
