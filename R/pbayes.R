@@ -102,3 +102,94 @@ pbayes <- function(p, n_boots = 1000, alpha = 0.01, n_cores = 1, subsample = 1,
 
 }
 
+
+#' Plot Bayesian Probability Mapping Results
+#'
+#' Visualizes the results of Bayesian probability mapping for p-values
+#' by plotting the fitted uniform-beta mixture distribution alongside
+#' the histogram of the original p-values. This function provides a
+#' graphical representation of how well the mixture model fits the
+#' data and allows for the inspection of posterior probabilities associated
+#' with each p-value.
+#'
+#' @param pb A `pbayes` object containing the results from Bayesian probability
+#'   mapping, including the fitted mixture model and original p-values. Must be
+#'   of class 'pbayes'.
+#' @param hist_breaks Integer, the number of breaks (bins) to use for the histogram
+#'   of p-values. Defaults to 70.
+#' @param linewidth Numeric, specifying the line width for the mixture model components.
+#'   Defaults to 1.
+#' @param brewer_pal Character string, specifying the color palette from the RColorBrewer
+#'   package to use for the different components of the mixture model. Defaults to "Set2".
+#'
+#' @return A ggplot object representing the fitted mixture model and the distribution
+#'   of p-values. This object can be further modified using ggplot2 functions or printed
+#'   to display the plot.
+#'
+#' @examples
+#' \dontrun{
+#'   # Assuming you have a pbayes object `pb` from previous analysis
+#'   plot.pbayes(pb)
+#'
+#'   # Customizing the plot
+#'   plot.pbayes(pb, hist_breaks = 100, linewidth = 2, brewer_pal = "Dark2")
+#' }
+#'
+#' @export
+plot.pbayes <- function(pb, hist_breaks = 70,
+                        linewidth = 1, brewer_pal = "Set2") {
+
+  # Ensure the input is of class pbayes
+  if (!inherits(pb, "pbayes")) {
+    stop("Input must be of class 'pbayes'.")
+  }
+
+  # get the number of components
+  n_comp <- sum(grepl("^l", names(pb$mixture_model)))
+
+  # loop over the components to make the curves
+  sample_length <- 200
+  xtemp <- seq(0, 1, length.out = sample_length) # x values for each loop
+  xvals <- rep(xtemp, n_comp) # x values for plotting
+  components <- character(sample_length * n_comp)
+  yvals <- numeric(sample_length * n_comp)
+  for (i in 1:n_comp) {
+    comp_index <- i - 1
+    segment_start <- (comp_index * sample_length) + 1
+    segment_end <- i * sample_length
+    if (comp_index == 0) { # if the uniform component
+      yvals[segment_start:segment_end] <-
+        dbeta(xtemp, 1, 1) * pb$mixture_model["l0"]
+      components[segment_start:segment_end] <- rep("uniform", length(xtemp))
+    }
+    else { # if another component
+      yvals[segment_start:segment_end] <-
+        dbeta(xtemp, pb$mixture_model[paste0("r", comp_index)],
+              pb$mixture_model[paste0("s", comp_index)]) *
+        pb$mixture_model[paste0("l", comp_index)]
+      components[segment_start:segment_end] <- rep(paste0("beta ", comp_index),
+                                                   length(xtemp))
+    }
+
+  }
+
+  # assemble for plotting
+  curves <- data.frame(xvals, yvals, components)
+  curves$components <-  factor(curves$components)
+  curves$components <- relevel(curves$components, "uniform")
+
+  # make plot
+  p <- ggplot2::ggplot(data.frame(xvals = pb$p_value), ggplot2::aes(x = xvals)) +
+    ggplot2::geom_histogram(ggplot2::aes(y = ggplot2::after_stat(density)),
+                            breaks = seq(0, 1, length.out = hist_breaks)) +
+    ggplot2::geom_line(data = curves,
+                       ggplot2::aes(color = components, y = yvals, x = xvals),
+                       linewidth = linewidth) +
+    ggplot2::scale_color_brewer(palette = brewer_pal) +
+    ggplot2::theme_bw() +
+    ggplot2::labs(x = "p-value", y = "density")
+
+  return(p)
+
+}
+

@@ -20,5 +20,6 @@ Imports:
     bbmle,
     foreach,
     doMC,
-    testthat
+    testthat,
+    ggplot2
 RoxygenNote: 7.2.3
