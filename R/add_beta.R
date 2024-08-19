@@ -89,7 +89,7 @@ add_beta <- function(p, mixm, opt_method = "L-BFGS-B", monotone = TRUE,
                                method = opt_method, lower = lower_bounds,
                                upper = upper_bounds, ...), silent = TRUE)
       }
-      if (class(est) != "try-error") {
+      if (class(est) != "try-error" & !grepl("ERROR", est@details$message)) {
         break
       }
       print(paste0("Attempting optimization with new initial values. Attempt ",
